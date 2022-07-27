@@ -55,14 +55,20 @@ public class EventListener implements Listener {
     public void onEntityDamage(EntityDamageByEntityEvent e) {
         if (e.getDamager() instanceof Player player) {
             if (isWork(player.getLevel().getName())) {
-                var uuid = e.getEntity().getUniqueId().toString();
-                if (invincible.containsKey(uuid)) {
-                    if (invincible.get(uuid)) {
+                var uuid1 = e.getEntity().getUniqueId().toString();
+                var uuid2 = e.getDamager().getUniqueId().toString();
+                if (invincible.containsKey(uuid1)) {
+                    if (invincible.get(uuid1)) {
                         e.setCancelled(true);
                         return;
                     }
                 }
-                plugin.log.info(String.valueOf(e.getDamage() - e.getEntity().getHealth()));
+                if (invincible.containsKey(uuid2)) {
+                    if (invincible.get(uuid2)) {
+                        e.setCancelled(true);
+                        return;
+                    }
+                }
                 var health = new BigDecimal(String.valueOf(e.getEntity().getHealth()));
                 var damage = new BigDecimal(String.valueOf(e.getDamage()));
                 var cmp = damage.compareTo(health);
@@ -101,4 +107,5 @@ public class EventListener implements Listener {
             }
         }
     }
+
 }
