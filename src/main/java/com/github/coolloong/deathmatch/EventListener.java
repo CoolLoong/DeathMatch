@@ -53,7 +53,7 @@ public class EventListener implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onEntityDamage(EntityDamageByEntityEvent e) {
-        if (e.getDamager() instanceof Player player) {
+        if (e.getDamager() instanceof Player player && e.getEntity() instanceof Player) {
             if (isWork(player.getLevel().getName())) {
                 var uuid1 = e.getEntity().getUniqueId().toString();
                 var uuid2 = e.getDamager().getUniqueId().toString();
